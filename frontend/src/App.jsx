@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
 
-import Navbar from './components/Navbar.jsx'
-import HomePage from './pages/HomePage.jsx'
-import SignUpPage from './pages/SignUpPage.jsx'
-import LoginPage from './pages/LoginPage.jsx'
-import SettingsPage from './pages/SettingsPage.jsx'
-import ProfilePage from './pages/ProfilePage.jsx'
+import Navbar from './components/Navbar'
+import HomePage from './pages/HomePage'
+import SignUpPage from './pages/SignUpPage'
+import LoginPage from './pages/LoginPage'
+import SettingsPage from './pages/SettingsPage'
+import ProfilePage from './pages/ProfilePage'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { useAuthStore } from './store/useAuthStore.js'
+import { useAuthStore } from './store/useAuthStore'
 import { Loader } from 'lucide-react'
 import { Toaster } from 'react-hot-toast'
+import { useThemeStore } from './store/useThemeStore'
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore()
+  const { theme } = useThemeStore()
   useEffect(() => {
     checkAuth()
   }, [])
@@ -25,7 +27,7 @@ const App = () => {
   )
 
   return (
-    <div className='bg-gray-500 min-h-screen'>
+    <div data-theme={theme} className='min-h-screen'>
       <Navbar />
       <Routes>
         <Route path="/" element={authUser ? <HomePage /> : <Navigate to={"/login"} />} />
